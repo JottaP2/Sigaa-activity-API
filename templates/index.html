@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividades Pendentes</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Atividades Pendentes</h1>
+        <form id="login-form" method="POST" action="/login">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <div id="result">
+            <div id="loading-message" style="display:none;">Carregando dados...</div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('login-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();  
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const loadingMessage = document.getElementById('loading-message');
+            const resultDiv = document.getElementById('result');
+
+            loadingMessage.style.display = 'block';
+
+            resultDiv.innerHTML = ''; 
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingMessage.style.display = 'none';  
+
+  
+                if (data.atividades_pendentes && data.atividades_pendentes.length > 0) {
+                    resultDiv.innerHTML = '<ul>' + data.atividades_pendentes.map(atividade => `<li>${atividade}</li>`).join('') + '</ul>';
+                } else {
+                    resultDiv.innerHTML = '<p>Nenhuma atividade pendente.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+
+
+                loadingMessage.style.display = 'none';
+                resultDiv.innerHTML = '<p>Erro ao carregar atividades.</p>';
+            });
+        });
+    </script>
+</body>
+</html>
