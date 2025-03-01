@@ -91,11 +91,13 @@ Se houver um erro, a resposta retornará:
 ## 🏗 Estrutura do Projeto
 ```
 📂 sigaa-activity-checker
+├── 📂 static       # Pasta do Css
+│   ├── 📂 css
+│   ├── styles.css
 ├── 📄 app.py          # Código principal da API
 ├── 📂 templates       # HTML para renderizar a página inicial
 │   ├── index.html
 ├── 📄 requirements.txt # Dependências do projeto
-├── 📄 README.md       # Documentação do projeto
 ```
 
 ## 📜 Licença
