@@ -1,4 +1,3 @@
 selenium
 flask 
-fastapi
-uvicorn[standard]
+uvicorn
