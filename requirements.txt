@@ -1,2 +1,4 @@
 selenium
 flask 
+fastapi
+uvicorn[standard]
